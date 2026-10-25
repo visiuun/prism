@@ -9,7 +9,7 @@
 Point it at a folder of photos and videos and get the same folder back at a fraction of the size, with original
 colours, rotation, metadata, audio tracks and subtitles intact. Every result is verified before it is kept.
 
-[![Download](https://img.shields.io/github/v/release/visiuun/Prism-Media-Compressor?label=download&color=ff3b30)](https://github.com/visiuun/Prism-Media-Compressor/releases/latest)
+[![Download](https://img.shields.io/github/v/release/visiuun/Prism?label=download&color=ff3b30)](https://github.com/visiuun/Prism/releases/latest)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey)](LICENSE)
 ![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-111113)
 ![Python](https://img.shields.io/badge/python-3.9%2B-3776ab)
@@ -36,7 +36,7 @@ colours, rotation, metadata, audio tracks and subtitles intact. Every result is 
 
 ### Windows: download and run
 
-1. Download **`Prism.exe`** from the [latest release](https://github.com/visiuun/Prism-Media-Compressor/releases/latest).
+1. Download **`Prism.exe`** from the [latest release](https://github.com/visiuun/Prism/releases/latest).
 2. Double-click it. Nothing to install.
 
 If FFmpeg isn't already on your PC, Prism downloads it by itself on first launch (once).
@@ -45,8 +45,8 @@ Windows SmartScreen may warn because the exe isn't code-signed. Click **More inf
 ### Any OS: run from source
 
 ```bash
-git clone https://github.com/visiuun/Prism-Media-Compressor.git
-cd Prism-Media-Compressor
+git clone https://github.com/visiuun/Prism.git
+cd Prism
 ```
 
 | OS | Start Prism |
