@@ -1,0 +1,64 @@
+name: Build macOS and Linux
+
+# The Windows .exe is built and attached by hand; this adds the other platforms.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            asset: Prism-macOS-arm64.zip
+          - os: macos-15-intel
+            asset: Prism-macOS-x64.zip
+          - os: ubuntu-22.04
+            asset: Prism-Linux-x64.tar.gz
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: Build (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          pyinstaller --noconfirm --windowed --name Prism --icon prism.png \
+            --add-data "prism.ico:." --add-data "prism.png:." \
+            --collect-all customtkinter --collect-all pillow_jxl --collect-all pillow_heif --collect-all imageio_ffmpeg \
+            --osx-bundle-identifier com.visiuun.prism prism.py
+          cd dist && ditto -c -k --keepParent Prism.app "../${{ matrix.asset }}"
+
+      - name: Build (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --name Prism \
+            --add-data "prism.ico:." --add-data "prism.png:." \
+            --collect-all customtkinter --collect-all pillow_jxl --collect-all pillow_heif --collect-all imageio_ffmpeg \
+            prism.py
+          tar -czf "${{ matrix.asset }}" -C dist Prism
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: ${{ matrix.asset }}
+
+      - name: Attach to release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" "${{ matrix.asset }}" --clobber

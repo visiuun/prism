@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.prism-extras
+
+# Build output
+build/
+dist/
+*.spec
+*.exe
+
+# Licensing tools and keys from the closed-source days: never publish
+*.pem
+*.key
+keygen.py
+full_reset.py
+private_keygen.py
+
+# Local leftovers
+_backup_v2/
+prismOLD.png
+*.log
+.DS_Store
+Thumbs.db

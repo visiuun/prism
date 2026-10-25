@@ -1,0 +1,8 @@
+Pillow>=10
+customtkinter>=5.2
+av>=12
+numpy
+watchdog
+pillow-jxl-plugin
+pillow-heif
+imageio-ffmpeg; sys_platform != "win32"
